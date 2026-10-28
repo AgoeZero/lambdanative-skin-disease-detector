@@ -44,27 +44,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <gd.h>
 #include <math.h>
 #include "tinymaix/tinymaix.h"
-#include "tomato.h"
-#define IMG_WIDTH 128
-#define IMG_HEIGHT 128
+#include "skin.h"
+#define IMG_WIDTH 224
+#define IMG_HEIGHT 224
 #define IMG_CHANNELS 3
 
 static const char *classes[] = {
-    "Bacterial Spot",
-    "Early Blight",
-    "Late Blight",
-    "Leaf Mold",
-    "Septoria Leaf Spot",
-    "Spider Mites",
-    "Target Spot",
-    "Yellow Leaf Curl Virus",
-    "Mosaic Virus",
-    "Healthy",
-    "Powdery Mildew"
+    "BA- cellulitis",
+    "BA-impetigo",
+    "FU-athlete-foot",
+    "FU-nail-fungus",
+    "FU-ringworm",
+    "PA-cutaneous-larva-migrans",
+    "VI-chickenpox",
+    "VI-shingles",
 };
 
-float probabilities[11];
+float probabilities[8];
 int best = 0;
+int next = 0;
 double max = 0;
 
 void softmax(const float *logits, float *prob, int n)
@@ -103,7 +101,7 @@ int classify(gdImagePtr image)
 
     res = tm_load(
         &mdl,
-        tomato_data,
+        skin_data,
         NULL,
         NULL,
         &model_in
@@ -202,11 +200,11 @@ int classify(gdImagePtr image)
     printf("w = %d\n", out.w);
     printf("c = %d\n", out.c);
 
-    float logits[11];
+    float logits[9];
 
     printf("\nRaw TinyMaix logits:\n");
 
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 8; i++) {
 
         logits[i] = out.dataf[i];
 
@@ -222,14 +220,16 @@ int classify(gdImagePtr image)
     softmax(
         logits,
         probabilities,
-        11
+        8
     );
 
     //Find the highest probalility
     best = 0;
-    for (int i = 1; i < 11; i++) {
+    next = 0;
+    for (int i = 1; i < 8; i++) {
         if (probabilities[i] >
             probabilities[best]) {
+            next = best;
             best = i;
         }
     }
@@ -256,7 +256,7 @@ int classify(gdImagePtr image)
     );
     //Print all probabilities.
     printf("\nAll probabilities:\n");
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 8; i++) {
         printf(
             "%2d %-25s %.9f (%.6f%%)\n",
             i,
@@ -280,6 +280,10 @@ double getMax(){
 
 int getMaxClass(){
     return best;
+}
+
+int getNextClass(){
+    return next;
 }
 
 /*float go(){

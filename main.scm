@@ -50,24 +50,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 (define camera-image (string-append (system-directory) (system-pathseparator) "skin.jpg"))
 (define camera-image2 (string-append (system-directory) (system-pathseparator) "skin.png"))
 
-(define tomato-classes
+(define skin-classes
   '#(
-    "Bacterial Spot"
-    "Early Blight"
-    "Late Blight"
-    "Leaf Mold"
-    "Septoria Leaf Spot"
-    "Spider Mites"
-    "Target Spot"
-    "Yellow Leaf Curl Virus"
-    "Mosaic Virus"
-    "Healthy"
-    "Powdery Mildew"
+        "BA- cellulitis"
+    "BA-impetigo"
+    "FU-athlete-foot"
+    "FU-nail-fungus"
+    "FU-ringworm"
+    "PA-cutaneous-larva-migrans"
+    "VI-chickenpox"
+    "VI-shingles"
+
 ))
 
 (define lastmodtime 0.)
 (define get-class 
     (c-lambda () int "getMaxClass")
+)
+
+(define get-next
+    (c-lambda () int "getNextClass")
 )
 
 (define get-max
@@ -119,7 +121,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          (classify gd2)
          (glgui-widget-set! gui text 'label
             (string-append
-                (vector-ref tomato-classes (get-class))
+                (vector-ref skin-classes (get-class))
                 " ("
                 (number->string (get-max))
                 "%)"
@@ -145,9 +147,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         (glgui-button gui (center 100) (vh 5) 100 100 default.img (lambda (un . used) 
             (camera-start camera-image)
         ))
-        (result " Scabies (90%)" 40)
-        (result " Chicken Pox (73%)" 30) 
-        (result " Eczma (54%)" 20)
+        (result " Unknown (0%)" 40)
+        
         (glgui-label gui (center (- width 20)) (vh 50) width (vh 10) "Results" dejavubold_32.fnt theme-fg)
         (glgui-box gui (center (vh 30)) (vh 65) (vh 30) (vh 30) theme-bg)
         (set! img-box (glgui-image gui (center (vh 30)) (vh 65) (vh 30) (vh 30) splash.img White))
