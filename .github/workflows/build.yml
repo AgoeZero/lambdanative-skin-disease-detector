@@ -61,11 +61,6 @@ jobs:
     - name: Copy app App
       run: |
         cp -r SkinDiseaseDetector lambdanative/apps/
-    - name: Linux build
-      working-directory: lambdanative
-      run: |
-        ./configure SkinDiseaseDetector --verbose
-        make
     - name: Android build
       working-directory: lambdanative
       run: |
