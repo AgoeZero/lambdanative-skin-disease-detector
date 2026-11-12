@@ -58,7 +58,8 @@ jobs:
        sed -i 's|SYS_CC="gcc $SYS|SYS_CC="gcc-14 $SYS|g' targets/linux/host_linux
        sed -i 's|SYS_CXX="g++ $SYS|SYS_CXX="g++-14 $SYS|g' targets/linux/host_linux
        sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
-       which ranlib
+       export SYS_RANLIB = "$(which ranlib)"
+       export SYS_AR = "$(which ar)"
     - name: Copy Tomato App
       run: |
         rm -rf tomato
