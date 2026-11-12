@@ -62,18 +62,18 @@ jobs:
       run: |
         rm -rf tomato
         git clone https://github.com/AgoeZero/lambdanative-skin-disease-detector.git
-        cp -r lambdanative-sin-disease-detector lambdanative/apps/
+        cp -r lambdanative-sin-disease-detector/SkinDiseaseDetector lambdanative/apps/
     - name: Linux build
       working-directory: lambdanative
       run: |
-        ./configure lambdanative-skin-disease-detector --verbose
+        ./configure SkinDiseaseDetector --verbose
         make
     - name: Android build
       working-directory: lambdanative
       run: |
         sed -i 's/python/python3/g' targets/android/check-tools
         mkdir -p ~/.cache/lambdanative/android/support
-        ./configure lambdanative-skin-disease-detector --verbose android debug
+        ./configure SkinDiseaseDetector --verbose android debug
         make || { echo "Android build failed"; cat config.log; exit 1; }
     - name: Debug APK output
       run: |
