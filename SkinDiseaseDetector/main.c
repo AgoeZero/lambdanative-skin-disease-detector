@@ -43,7 +43,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <gd.h>
 #include <math.h>
-#include "tinymaix/tinymaix.h"
+#include "tinymaix.h"
 #include "skin.h"
 #define IMG_WIDTH 224
 #define IMG_HEIGHT 224
