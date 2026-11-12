@@ -14,19 +14,22 @@ jobs:
       image: fedora:43
 
     steps:
-    - uses: actions/checkout@v7
+    - uses: actions/checkout@v6
     - run: cat /etc/os-release
     - name: install dependencies
       run: |
        dnf -y install alsa-lib-devel ant autoconf automake bc curl gambit-c
-       dnf -y install gcc-14 git grep ImageMagick-devel java-25-openjdk-devel
+       dnf -y install binutils gcc make cmake
+       dnf -y install gcc14 gcc14-c++ git grep ImageMagick-devel java-25-openjdk-devel
        dnf -y install libtool libXext-devel make mesa-libGL-devel
        dnf -y install mesa-libGLU-devel netpbm-devel patch perl-FindBin
        dnf -y install portaudio python3-sdkmanager sed tar tcl-devel texlive
        dnf -y install which wget zip
     - name: Get LambdaNative
       run: |
-       git clone https://github.com/part-cw/lambdanative
+       rm -rf lambdanative
+       git clone https://github.com/bkmgit/lambdanative.git -b tinymaix --no-single-branch
+       cd lambdanative
     - name: setup android
       run: |
        # https://stackoverflow.com/a/77215395
@@ -55,67 +58,29 @@ jobs:
        sed -i 's|SYS_CC="gcc $SYS|SYS_CC="gcc-14 $SYS|g' targets/linux/host_linux
        sed -i 's|SYS_CXX="g++ $SYS|SYS_CXX="g++-14 $SYS|g' targets/linux/host_linux
        sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
-    - name: Copy Skin Disease Detector app
-      run: cp -r SkinDiseaseDetector lambdanative/apps/
-    - name: linux builds
+    - name: Copy Tomato App
+      run: |
+        rm -rf tomato
+        git clone https://github.com/AgoeZero/lambdanative-skin-disease-detector.git
+        cp -r lambdanative-sin-disease-detector lambdanative/apps/
+    - name: Linux build
       working-directory: lambdanative
       run: |
-       ./configure SkinDiseaseDetector
-       make
-    - name: android builds
+        ./configure lambdanative-skin-disease-detector --verbose
+        make
+    - name: Android build
       working-directory: lambdanative
       run: |
-       # Fedora only provides Python3
-       sed -i 's/python/python3/g' targets/android/check-tools
-       # Make directory to avoid errors during build
-       mkdir -p /home/build/.cache/lambdanative/android/support
-       ./configure SkinDiseaseDetector android debug
-       make
-    - uses: actions/upload-artifact@v7.0.1
-      with:
-       name: apk
-       path: /github/home/.cache/lambdanative/packages/*.apk
-
-  makesite:
-    name: fedora
-    runs-on: ubuntu-latest
-    needs: build
-    container:
-      image: fedora:43
-
-    steps:
-    - uses: actions/checkout@v4
-    - run: cat /etc/os-release
-    - name: install dependencies
+        sed -i 's/python/python3/g' targets/android/check-tools
+        mkdir -p ~/.cache/lambdanative/android/support
+        ./configure lambdanative-skin-disease-detector --verbose android debug
+        make || { echo "Android build failed"; cat config.log; exit 1; }
+    - name: Debug APK output
       run: |
-       dnf -y install autoconf automake awk diffutils gcc guile-reader-devel guile-commonmark
-       dnf -y install guile30-devel haunt make tar texinfo unzip
-    - name: build site
-      working-directory: website
-      run: haunt build
-    - name: download apk
-      uses: actions/download-artifact@v4
+        ls -R ~/.cache/lambdanative/packages/
+        find $GITHUB_WORKSPACE -name "*.apk"
+
+    - uses: actions/upload-artifact@v7
       with:
         name: apk
-        path: website/build
-    - name: Upload static files as artifact
-      id: deployment
-      uses: actions/upload-pages-artifact@v4
-      with:
-        path: website/build
-        
-  # Deployment job
-  deploy:
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: makesite
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        path: ~/.cache/lambdanative/packages/*.apk
