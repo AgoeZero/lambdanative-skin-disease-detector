@@ -62,7 +62,7 @@ jobs:
       run: |
         rm -rf tomato
         git clone https://github.com/AgoeZero/lambdanative-skin-disease-detector.git
-        cp -r lambdanative-sin-disease-detector/SkinDiseaseDetector lambdanative/apps/
+        cp -r lambdanative-skin-disease-detector/SkinDiseaseDetector lambdanative/apps/
     - name: Linux build
       working-directory: lambdanative
       run: |
