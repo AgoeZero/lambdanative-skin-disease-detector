@@ -1,104 +1,79 @@
-
 # Skin Disease Detector
 
-A skin disease classification application written in Scheme using [LambdaNative](https://github.com/bkmgit/lambdanative).
+An experimental skin disease image-classification application written in Scheme using LambdaNative.
 
-## Project Description
+## About
 
-**Skin Disease Detector** is a deep learning application designed to classify skin diseases from images using a lightweight Convolutional Neural Network (CNN).
+Skin Disease Detector uses a lightweight convolutional neural network (CNN) to classify images into categories represented in its training dataset. The project explores on-device image classification for mobile and resource-constrained devices.
 
-The application combines deep learning with lightweight embedded inference to bring image-based skin disease classification to mobile and resource-constrained devices.
-
-The project uses a custom-trained CNN model developed with TensorFlow and Keras, which is converted for deployment using TinyMaix.
+The model was developed with TensorFlow and Keras, converted to a lightweight format, and integrated into the LambdaNative Android application using TinyMaix.
 
 ## Features
 
-The project provides the following capabilities:
-
-- **Skin Disease Classification:** Classify skin images into disease categories using a custom-trained CNN model.
-- **Lightweight Model:** Use an efficient CNN architecture designed for resource-constrained devices.
-- **Offline Inference:** Perform image classification locally without requiring a continuous internet connection.
-- **Mobile Deployment:** Run the classifier within an Android application built using LambdaNative.
-- **Multiple Classes:** Support eight skin disease categories from the training dataset.
+- Classifies skin images into eight categories represented in the training dataset.
+- Performs inference locally on the device, without requiring a continuous internet connection.
+- Uses a lightweight CNN designed for mobile and embedded deployment.
+- Built with Scheme and LambdaNative, with native C integration.
 
 ## Dataset
 
-The model was trained using the publicly available [Skin Disease Dataset](https://www.kaggle.com/datasets/subirbiswas19/skin-disease-dataset) by Subir Biswas on Kaggle.
+The model was trained using the [Skin Disease Dataset by Subir Biswas on Kaggle](https://www.kaggle.com/datasets/subirbiswas19/skin-disease-dataset).
 
-The dataset contains images representing eight skin infection categories:
+The dataset covers these categories:
 
-- Bacterial Infections – Cellulitis
-- Bacterial Infections – Impetigo
-- Fungal Infections – Athlete's Foot
-- Fungal Infections – Nail Fungus
-- Fungal Infections – Ringworm
-- Parasitic Infections – Cutaneous Larva Migrans
-- Viral Infections – Chickenpox
-- Viral Infections – Shingles
+- Bacterial infections: Cellulitis and Impetigo
+- Fungal infections: Athlete’s Foot, Nail Fungus, and Ringworm
+- Parasitic infections: Cutaneous Larva Migrans
+- Viral infections: Chickenpox and Shingles
 
-## Model Architecture
+Classification results are limited to the dataset and categories used during training.
 
-The classification model uses a lightweight CNN architecture designed to balance classification performance and computational efficiency.
+## Model and deployment
 
-Its main components include:
+The model-development workflow involves:
 
-- Three convolutional layers with strided convolutions for spatial downsampling.
-- Global Average Pooling to reduce the number of model parameters.
-- 1×1 convolutional layers serving as fully connected layers for classification.
-
-The architecture is designed to provide efficient multi-class classification while keeping computational requirements low enough for mobile and embedded deployment.
-
-## Model Conversion and Deployment
-
-The model development pipeline uses TensorFlow and Keras for training, followed by conversion to a lightweight format suitable for deployment.
-
-The conversion and deployment workflow involves:
-
-1. Training the CNN model using the skin disease image dataset.
+1. Training a CNN using the skin disease image dataset.
 2. Converting the trained model to TensorFlow Lite format.
-3. Converting the quantized model for use with TinyMaix.
-4. Integrating the generated model into the LambdaNative application.
+3. Converting the quantized model for TinyMaix.
+4. Integrating the model into the LambdaNative application.
 
-## Technology Stack
+The architecture uses three convolutional layers with strided convolutions, global average pooling, and 1×1 convolutional layers for classification.
 
-- **Scheme:** Application development using LambdaNative.
-- **C:** Native application and inference integration.
-- **Python:** Model training and conversion utilities.
-- **TensorFlow / Keras:** Deep learning model development and training.
-- **TensorFlow Lite:** Model conversion and quantization.
-- **TinyMaix:** Lightweight neural network inference.
+## Download
 
-## Third-Party Software
+[Download Skin Disease Detector for Android (APK)](https://github.com/AgoeZero/lambdanative-skin-disease-detector/actions/runs/44742572366/artifacts/14632395957)
+
+This link points to a specific GitHub Actions artifact and may expire. Replace it with a release download link if you publish the APK as a GitHub Release asset.
+
+## Technology stack
+
+- **Scheme:** Application development with LambdaNative
+- **C:** Native application and inference integration
+- **Python:** Model training and conversion utilities
+- **TensorFlow / Keras:** Model development and training
+- **TensorFlow Lite:** Model conversion and quantization
+- **TinyMaix:** Lightweight neural-network inference
+
+## Third-party software
 
 ### DemoCamera
 
-Portions of the project are based on `DemoCamera`, originally developed at the University of British Columbia.
+Portions of this project are based on DemoCamera, originally developed at the University of British Columbia.
 
 ### TinyMaix
 
-This project uses the [TinyMaix](https://github.com/sipeed/TinyMaix) library.
+This project uses the [TinyMaix library](https://github.com/sipeed/TinyMaix). TinyMaix is distributed under the Apache License 2.0. See the relevant third-party licensing information for details.
 
-TinyMaix is distributed under the Apache License 2.0. See the relevant third-party licensing information for details.
+## Support
+
+This work is supported by the [NLnet Foundation](https://nlnet.nl/) through the [LambdaNative F-Droid integration project](https://nlnet.nl/project/F-Droid-LambdaNative/).
+
+![NLnet Foundation logo](images/NLnetLogo.png)
 
 ## Disclaimer
 
-This application is intended for educational, research, and experimental purposes only.
-
-It is not a medical diagnostic tool and should not be used as a substitute for professional medical advice, diagnosis, or treatment.
-
-Always consult a qualified healthcare professional for the assessment and diagnosis of skin conditions.
+This application is intended for educational, research, and experimental purposes only. It is not a medical diagnostic tool and should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional for the assessment and diagnosis of skin conditions.
 
 ## License
 
-This project is licensed under the BSD 2-Clause License. See the [LICENSE](LICENSE) file for details.
-
-## Funding
-
-This project is funded through
-[NGI Mobifree Fund](https://nlnet.nl/mobifree), a fund established by
-[NLnet](https://nlnet.nl) with financial support from the European
-Commission's [Next Generation Internet](https://ngi.eu) program. Learn
-more at the [NLnet project page](https://nlnet.nl/project/F-Droid-LambdaNative).
-
-[<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo"
-width="20%" />](https://nlnet.nl)
+This project is licensed under the BSD 2-Clause License. See the `LICENSE` file for details.

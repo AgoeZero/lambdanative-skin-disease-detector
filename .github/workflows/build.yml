@@ -75,5 +75,19 @@ jobs:
 
     - uses: actions/upload-artifact@v7
       with:
-        name: apk
+        name: SkinDiseaseDetector.apk
         path: ~/.cache/lambdanative/packages/*.apk
+        archive: false
+
+    - name: Download APK
+      uses: actions/download-artifact@v8
+      with:
+        name: SkinDiseaseDetector.apk
+        path: website
+
+    - name: Upload static site to Pages
+      id: deployment
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: website
+
