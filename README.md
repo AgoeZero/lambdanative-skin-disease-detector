@@ -68,7 +68,7 @@ This project uses the [TinyMaix library](https://github.com/sipeed/TinyMaix) by 
 
 This work is supported by the [NLnet Foundation](https://nlnet.nl/) through the [LambdaNative F-Droid integration project](https://nlnet.nl/project/F-Droid-LambdaNative/).
 
-![NLnet Foundation logo](images/NLnetLogo.png)
+![NLnet Foundation logo](website/static/images/NLnetLogo.png)
 
 ## Disclaimer
 

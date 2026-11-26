@@ -32,6 +32,18 @@ a {
     text-decoration: none;
     color: #e8edf6;
 }
+
+.horizontal-nav {
+          li {
+		  display: inline;
+	  }
+	  li:after { content: "  \00b7  "; }
+	  li:last-child:after {
+		  content: "";
+	  }
+}
+
+
 .wrap {
     max-width: 900px;
     margin: auto;
