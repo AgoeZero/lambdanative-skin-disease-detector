@@ -98,7 +98,8 @@ jobs:
        dnf -y install guile30-devel haunt make tar texinfo unzip
     - name: build site
       working-directory: website
-      run: haunt build
+      run: |
+        haunt build
     - name: download apk
       uses: actions/download-artifact@v8
       with:

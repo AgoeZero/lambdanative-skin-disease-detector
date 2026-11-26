@@ -3,6 +3,7 @@
 ;; Copyright (c) 2025 Rabina Poudyal
 ;; Copyright (c) 2025-2026 Benson Muite
 ;; Copyright (c) 2026 Bonface Kabiru
+;; Copyright (c) 2026 John Adjei
 ;;
 ;; Permission is hereby granted, free of charge, to any person obtaining a copy
 ;; of this software and associated documentation files (the "Software"), to deal
@@ -63,7 +64,11 @@
   (static-page "Skin Disease Detector" "index.html"
     `((main (@ (class "wrap"))
 	    (div (@ (class "eyebrow"))
-	      (p "Healthcare research · Machine learning · Edge AI"))
+		(ul (@ (class "horizontal-nav")) 
+                    (li "Healthcare research")
+                    (li "Machine learning")
+                    (li "Edge AI")))
+
       (h1 "Skin Disease Detector")
       (p (@ (class "lead"))
 	 "An experimental skin disease image-classification application "
@@ -101,7 +106,7 @@
        (p "The dataset covers these categories:"
          (ul
            (li "Bacterial infections: Cellulitis and Impetigo")
-           (li "Fungal infections: Athlete’s Foot, Nail Fungus, and Ringworm")
+           (li "Fungal infections: Athlete's Foot, Nail Fungus, and Ringworm")
            (li "Parasitic infections: Cutaneous Larva Migrans")
            (li "Viral infections: Chickenpox and Shingles")))
 
@@ -185,7 +190,11 @@
 	    "LICENSE")
 	 " file for details.")
 
-      (footer "Open Source · AI for Good · Built in Ghana")
+      (footer
+	(ul (@ (class "horizontal-nav")) 
+	  (li "Open Source")
+	  (li "AI for Good")
+	  (li "Built in Ghana")))
 
       ))))
 
@@ -193,7 +202,7 @@
       #:domain "agoezero.github.io"
       #:build-directory "build"
       #:default-metadata
-      '((author . "Agoe Zero"))
+      '((author . "John Adjei"))
       #:readers (list commonmark-reader texinfo-reader skribe-reader sxml-reader html-reader)
       #:builders (list (blog)
 		       home-page
