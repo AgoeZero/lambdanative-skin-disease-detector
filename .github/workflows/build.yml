@@ -11,7 +11,7 @@ jobs:
     name: fedora
     runs-on: ubuntu-latest
     container:
-      image: fedora:43
+      image: fedora:44
 
     steps:
     - uses: actions/checkout@v6
@@ -20,7 +20,7 @@ jobs:
       run: |
        dnf -y install alsa-lib-devel ant autoconf automake bc curl gambit-c
        dnf -y install binutils gcc make cmake
-       dnf -y install gcc14 gcc14-c++ git grep ImageMagick-devel java-25-openjdk-devel
+       dnf -y install gcc15 gcc15-c++ git grep ImageMagick-devel java-25-openjdk-devel
        dnf -y install libtool libXext-devel make mesa-libGL-devel
        dnf -y install mesa-libGLU-devel netpbm-devel patch perl-FindBin
        dnf -y install portaudio python3-sdkmanager sed tar tcl-devel texlive
@@ -55,9 +55,9 @@ jobs:
        sed -i 's|/usr/local/android-ndk-*|/home/build/android-sdk/ndk-bundle|g' SETUP
        cp PROFILE.template PROFILE
        sed -i 's|SYS_ANDROIDPW="yoursecrethere"|SYS_ANDROIDPW="android"|g' PROFILE
-       sed -i 's|SYS_CC="gcc $SYS|SYS_CC="gcc-14 $SYS|g' targets/linux/host_linux
-       sed -i 's|SYS_CXX="g++ $SYS|SYS_CXX="g++-14 $SYS|g' targets/linux/host_linux
-       sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
+       sed -i 's|SYS_CC="gcc $SYS|SYS_CC="gcc-15 $SYS|g' targets/linux/host_linux
+       sed -i 's|SYS_CXX="g++ $SYS|SYS_CXX="g++-15 $SYS|g' targets/linux/host_linux
+       sed -i 's|gcc -Werror|gcc-15 -Werror|g' targets/linux/check-libraries
     - name: Copy app App
       run: |
         cp -r SkinDiseaseDetector lambdanative/apps/
@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     container:
-      image: fedora:43
+      image: fedora:44
 
     steps:
     - uses: actions/checkout@v7
