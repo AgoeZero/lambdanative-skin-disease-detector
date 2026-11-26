@@ -63,7 +63,7 @@
   (static-page "Skin Disease Detector" "index.html"
     `((main (@ (class "wrap"))
 	    (div (@ (class "eyebrow"))
-	      (p "Healthcare research · Machine learning · Edge AI"))
+	      (p "Healthcare research &#xB7; Machine learning &#xB7; Edge AI"))
       (h1 "Skin Disease Detector")
       (p (@ (class "lead"))
 	 "An experimental skin disease image-classification application "
@@ -101,7 +101,7 @@
        (p "The dataset covers these categories:"
          (ul
            (li "Bacterial infections: Cellulitis and Impetigo")
-           (li "Fungal infections: Athlete’s Foot, Nail Fungus, and Ringworm")
+           (li "Fungal infections: Athlete&#x2019;s Foot, Nail Fungus, and Ringworm")
            (li "Parasitic infections: Cutaneous Larva Migrans")
            (li "Viral infections: Chickenpox and Shingles")))
 
@@ -185,7 +185,7 @@
 	    "LICENSE")
 	 " file for details.")
 
-      (footer "Open Source · AI for Good · Built in Ghana")
+      (footer "Open Source &#xB7; AI for Good &#xB7; Built in Ghana")
 
       ))))
 
