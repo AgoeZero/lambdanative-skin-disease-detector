@@ -98,7 +98,10 @@ jobs:
        dnf -y install guile30-devel haunt make tar texinfo unzip
     - name: build site
       working-directory: website
-      run: haunt build
+      run: |
+        haunt build
+        # The character gets removed if used directly
+        sed -i 's|·|\&#xB7;|g' build/index.html
     - name: download apk
       uses: actions/download-artifact@v8
       with:
