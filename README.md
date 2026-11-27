@@ -62,7 +62,7 @@ Portions of this project are based on DemoCamera, originally developed at the Un
 
 ### TinyMaix
 
-This project uses the [TinyMaix library](https://github.com/sipeed/TinyMaix) by Lieff Lee and contributors. TinyMaix is distributed under the Apache License 2.0. See the relevant third-party licensing information for details.
+This project uses the [TinyMaix library](https://github.com/sipeed/TinyMaix). TinyMaix is distributed under the Apache License 2.0. See the relevant third-party licensing information for details.
 
 ## Support
 
